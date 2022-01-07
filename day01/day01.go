@@ -40,11 +40,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strconv"
 	"strings"
 
 	"github.com/FollowTheProcess/advent_of_code_2020/hashset"
+	"github.com/FollowTheProcess/advent_of_code_2020/utils"
 )
 
 func main() {
@@ -55,7 +55,7 @@ func main() {
 }
 
 func run() error {
-	inputFile := filepath.Join(here(), "day01.txt")
+	inputFile := filepath.Join(utils.Root(), "day01", "day01.txt")
 	input, err := os.ReadFile(inputFile)
 	if err != nil {
 		return err
@@ -73,14 +73,6 @@ func run() error {
 	fmt.Printf("Part 1: %d\n\n", part1(intEntries))
 	fmt.Printf("Part 2: %d\n", part2(intEntries))
 	return nil
-}
-
-func here() string {
-	_, file, _, ok := runtime.Caller(0)
-	if !ok {
-		panic("Couldn't find file!")
-	}
-	return filepath.Join(file, "../")
 }
 
 func part1(entries []int) int {

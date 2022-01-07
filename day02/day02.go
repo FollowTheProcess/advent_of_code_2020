@@ -42,9 +42,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/FollowTheProcess/advent_of_code_2020/utils"
 )
 
 type Password struct {
@@ -129,7 +130,7 @@ func main() {
 }
 
 func run() error {
-	inputFile := filepath.Join(here(), "day02.txt")
+	inputFile := filepath.Join(utils.Root(), "day01", "day01.txt")
 	raw, err := os.ReadFile(inputFile)
 	if err != nil {
 		return err
@@ -165,12 +166,4 @@ func run() error {
 	fmt.Printf("Part 2: %d\n", validPart2)
 
 	return nil
-}
-
-func here() string {
-	_, file, _, ok := runtime.Caller(0)
-	if !ok {
-		panic("Couldn't find file!")
-	}
-	return filepath.Join(file, "../")
 }
