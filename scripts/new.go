@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
@@ -52,6 +53,11 @@ func run(args []string) error {
 	session, ok := os.LookupEnv("AOC_SESSION")
 	if !ok {
 		return errors.New("missing AOC_SESSION in .env")
+	}
+
+	dayStr := fmt.Sprintf("day%02d", day)
+	if exists(filepath.Join(root, dayStr)) {
+		return fmt.Errorf("%s already exists", filepath.Join(root, dayStr))
 	}
 
 	data, err := getInput(day, session)
@@ -135,4 +141,14 @@ func makeDay(root string, day int, data []byte) error {
 	}
 
 	return nil
+}
+
+func exists(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
+			return false
+		}
+	}
+	return true
 }
