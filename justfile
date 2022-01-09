@@ -15,8 +15,8 @@ fmt:
     gofumpt -extra -w .
 
 # Run all the tests
-test:
-    go test ./...
+test *flags:
+    go test ./... {{ flags }}
 
 # Lint all source files
 lint:
